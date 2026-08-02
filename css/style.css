@@ -91,12 +91,12 @@ body {
 
 /* Low value gone = good for the player: a light, upward, approving drift. */
 .value-chip.eliminated-low {
-  animation: value-leave-good 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: value-leave-good 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* High value gone = bad for the player: a heavier, sinking, deflated drop. */
 .value-chip.eliminated-high {
-  animation: value-leave-bad 1s cubic-bezier(0.5, 0, 0.4, 1) forwards;
+  animation: value-leave-bad 2.1s cubic-bezier(0.5, 0, 0.4, 1) forwards;
 }
 
 @keyframes value-leave-good {

@@ -336,8 +336,9 @@
     els.historyPanel.hidden = !hasHistory;
     if (!hasHistory) return;
 
-    const items = state.offerHistory.map((entry, index) => {
-      const isAcceptedDeal = state.dealAccepted && index === state.offerHistory.length - 1;
+    const lastIndex = state.offerHistory.length - 1;
+    const items = state.offerHistory.map((entry, index) => ({ entry, index })).reverse().map(({ entry, index }) => {
+      const isAcceptedDeal = state.dealAccepted && index === lastIndex;
 
       const li = document.createElement("li");
       li.className = "history-item";
