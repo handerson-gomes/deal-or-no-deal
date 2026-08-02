@@ -215,6 +215,62 @@ body {
   max-width: 480px;
 }
 
+.history-panel {
+  width: 100%;
+  max-width: 480px;
+  margin-top: 1rem;
+}
+
+.history-title {
+  margin: 0 0 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+}
+
+.history-item .history-round {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.history-item .history-amount {
+  font-weight: 700;
+}
+
+.history-item.accepted {
+  border-color: var(--deal-green);
+  background: rgba(31, 163, 99, 0.15);
+}
+
+.history-item .history-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--deal-green);
+  font-weight: 700;
+}
+
 .offer-label {
   margin: 0;
   text-transform: uppercase;

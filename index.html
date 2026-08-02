@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deal or No Deal</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>" />
-  <link rel="stylesheet" href="css/style.css?v=3" />
+  <link rel="stylesheet" href="css/style.css?v=4" />
 </head>
 <body>
   <header class="site-header">
@@ -53,6 +53,11 @@
         <p id="result-detail"></p>
         <button id="play-again-btn" class="btn btn-deal">Play Again</button>
       </div>
+
+      <section class="history-panel" id="history-panel" hidden>
+        <h2 class="history-title">Offer History</h2>
+        <ol class="history-list" id="history-list"></ol>
+      </section>
     </section>
   </main>
 
@@ -60,6 +65,6 @@
     <p>A browser recreation of Deal or No Deal. Hosted on GitHub Pages.</p>
   </footer>
 
-  <script src="js/game.js?v=3"></script>
+  <script src="js/game.js?v=4"></script>
 </body>
 </html>

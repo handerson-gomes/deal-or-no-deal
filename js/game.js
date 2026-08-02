@@ -34,6 +34,8 @@
     resultDetail: document.getElementById("result-detail"),
     playAgainBtn: document.getElementById("play-again-btn"),
     newGameBtn: document.getElementById("new-game-btn"),
+    historyPanel: document.getElementById("history-panel"),
+    historyList: document.getElementById("history-list"),
   };
 
   let state = null;
@@ -66,6 +68,7 @@
       lastOffer: null,
       dealAccepted: false,
       dealAmount: 0,
+      offerHistory: [],
     };
 
     render();
@@ -136,6 +139,7 @@
         render();
         setTimeout(() => {
           state.lastOffer = computeOffer();
+          state.offerHistory.push({ round: state.roundIndex, amount: state.lastOffer });
           state.phase = "offer";
           render();
         }, 500);
@@ -181,6 +185,7 @@
     renderOfferPanel();
     renderSwapPanel();
     renderResultPanel();
+    renderHistory();
   }
 
   function renderValues() {
@@ -307,6 +312,41 @@
         els.resultDetail.textContent = `You stuck with case #${yourCase.id}.`;
       }
     }
+  }
+
+  function renderHistory() {
+    const hasHistory = state.offerHistory.length > 0;
+    els.historyPanel.hidden = !hasHistory;
+    if (!hasHistory) return;
+
+    const items = state.offerHistory.map((entry, index) => {
+      const isAcceptedDeal = state.dealAccepted && index === state.offerHistory.length - 1;
+
+      const li = document.createElement("li");
+      li.className = "history-item";
+      if (isAcceptedDeal) li.classList.add("accepted");
+
+      const round = document.createElement("span");
+      round.className = "history-round";
+      round.textContent = `Round ${entry.round}`;
+
+      const amount = document.createElement("span");
+      amount.className = "history-amount";
+      amount.textContent = formatMoney(entry.amount);
+
+      li.append(round, amount);
+
+      if (isAcceptedDeal) {
+        const tag = document.createElement("span");
+        tag.className = "history-tag";
+        tag.textContent = "Deal";
+        li.appendChild(tag);
+      }
+
+      return li;
+    });
+
+    els.historyList.replaceChildren(...items);
   }
 
   els.dealBtn.addEventListener("click", onDeal);
