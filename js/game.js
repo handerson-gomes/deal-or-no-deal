@@ -40,6 +40,29 @@
 
   let state = null;
 
+  // Value chips are built once and reused across games; only their
+  // eliminated/animation classes change, so CSS animations can play.
+  const valueChipEls = new Map();
+
+  function buildValueChips() {
+    const sorted = CASE_VALUES.slice().sort((a, b) => a - b);
+    const half = Math.ceil(sorted.length / 2);
+    const left = sorted.slice(0, half);
+    const right = sorted.slice(half);
+
+    const buildChip = (value) => {
+      const chip = document.createElement("div");
+      chip.className = "value-chip";
+      if (value >= HIGH_VALUE_THRESHOLD) chip.classList.add("high-value");
+      chip.textContent = formatMoney(value);
+      valueChipEls.set(value, chip);
+      return chip;
+    };
+
+    els.valuesLeft.replaceChildren(...left.map(buildChip));
+    els.valuesRight.replaceChildren(...right.map(buildChip));
+  }
+
   function shuffle(array) {
     const copy = array.slice();
     for (let i = copy.length - 1; i > 0; i--) {
@@ -189,24 +212,18 @@
   }
 
   function renderValues() {
-    const sorted = CASE_VALUES.slice().sort((a, b) => a - b);
-    const half = Math.ceil(sorted.length / 2);
-    const left = sorted.slice(0, half);
-    const right = sorted.slice(half);
+    const remaining = new Set(remainingValues());
 
-    const buildChip = (value) => {
-      const chip = document.createElement("div");
-      chip.className = "value-chip";
-      if (value >= HIGH_VALUE_THRESHOLD) chip.classList.add("high-value");
-      if (!state.cases.some((c) => c.value === value && !c.opened)) {
-        chip.classList.add("eliminated");
+    valueChipEls.forEach((chip, value) => {
+      const isEliminated = !remaining.has(value);
+      const alreadyEliminated = chip.classList.contains("eliminated");
+
+      if (isEliminated && !alreadyEliminated) {
+        chip.classList.add("eliminated", value >= HIGH_VALUE_THRESHOLD ? "eliminated-high" : "eliminated-low");
+      } else if (!isEliminated && alreadyEliminated) {
+        chip.classList.remove("eliminated", "eliminated-low", "eliminated-high");
       }
-      chip.textContent = formatMoney(value);
-      return chip;
-    };
-
-    els.valuesLeft.replaceChildren(...left.map(buildChip));
-    els.valuesRight.replaceChildren(...right.map(buildChip));
+    });
   }
 
   function renderCases() {
@@ -360,5 +377,6 @@
     }
   });
 
+  buildValueChips();
   newGame();
 })();

@@ -80,16 +80,80 @@ body {
   font-weight: 600;
   font-size: 0.85rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: opacity 0.4s ease, transform 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+  transform-origin: center;
 }
 
 .value-chip.eliminated {
   background: transparent;
   color: rgba(255, 255, 255, 0.25);
   text-decoration: line-through;
-  border-color: rgba(255, 255, 255, 0.05);
-  opacity: 0.2;
-  transform: scale(0.92);
+}
+
+/* Low value gone = good for the player: a light, upward, approving drift. */
+.value-chip.eliminated-low {
+  animation: value-leave-good 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* High value gone = bad for the player: a heavier, sinking, deflated drop. */
+.value-chip.eliminated-high {
+  animation: value-leave-bad 1s cubic-bezier(0.5, 0, 0.4, 1) forwards;
+}
+
+@keyframes value-leave-good {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 rgba(46, 204, 113, 0);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.06);
+    box-shadow: 0 0 12px rgba(46, 204, 113, 0.55);
+    border-color: rgba(46, 204, 113, 0.8);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(-14px) scale(0.85);
+    box-shadow: 0 0 0 rgba(46, 204, 113, 0);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@keyframes value-leave-bad {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+    box-shadow: 0 0 0 rgba(231, 76, 60, 0);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.04) rotate(-2deg);
+    box-shadow: 0 0 14px rgba(231, 76, 60, 0.6);
+    border-color: rgba(231, 76, 60, 0.85);
+  }
+  45% {
+    transform: translateY(3px) scale(1.01) rotate(2deg);
+  }
+  70% {
+    transform: translateY(6px) scale(0.98) rotate(-1deg);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(14px) scale(0.85) rotate(0deg);
+    box-shadow: 0 0 0 rgba(231, 76, 60, 0);
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .value-chip.eliminated-low,
+  .value-chip.eliminated-high {
+    animation: none;
+    opacity: 0.2;
+    transform: scale(0.92);
+  }
 }
 
 .value-chip.high-value {
