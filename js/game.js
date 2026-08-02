@@ -16,8 +16,7 @@
     "$" + value.toLocaleString("en-US", { minimumFractionDigits: value < 1 ? 2 : 0, maximumFractionDigits: 2 });
 
   const els = {
-    valuesLeft: document.getElementById("values-left"),
-    valuesRight: document.getElementById("values-right"),
+    valuesPanel: document.getElementById("values-panel"),
     casesGrid: document.getElementById("cases-grid"),
     statusMessage: document.getElementById("status-message"),
     yourCaseArea: document.getElementById("your-case-area"),
@@ -184,11 +183,7 @@
   }
 
   function renderValues() {
-    const remaining = new Set(remainingValues());
     const sorted = CASE_VALUES.slice().sort((a, b) => a - b);
-    const half = Math.ceil(sorted.length / 2);
-    const left = sorted.slice(0, half);
-    const right = sorted.slice(half);
 
     const buildChip = (value) => {
       const chip = document.createElement("div");
@@ -201,8 +196,7 @@
       return chip;
     };
 
-    els.valuesLeft.replaceChildren(...left.map(buildChip));
-    els.valuesRight.replaceChildren(...right.map(buildChip));
+    els.valuesPanel.replaceChildren(...sorted.map(buildChip));
   }
 
   function renderCases() {
