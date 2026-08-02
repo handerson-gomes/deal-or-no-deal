@@ -162,7 +162,6 @@
         render();
         setTimeout(() => {
           state.lastOffer = computeOffer();
-          state.offerHistory.push({ round: state.roundIndex, amount: state.lastOffer });
           state.phase = "offer";
           render();
         }, 500);
@@ -173,6 +172,7 @@
   }
 
   function onDeal() {
+    state.offerHistory.push({ round: state.roundIndex, amount: state.lastOffer });
     state.dealAccepted = true;
     state.dealAmount = state.lastOffer;
     state.phase = "ended";
@@ -180,6 +180,7 @@
   }
 
   function onNoDeal() {
+    state.offerHistory.push({ round: state.roundIndex, amount: state.lastOffer });
     startRound();
   }
 
