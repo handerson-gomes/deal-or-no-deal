@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deal or No Deal</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Deal <span class="or">or</span> No Deal</h1>
+    <button id="new-game-btn" class="btn btn-ghost">New Game</button>
+  </header>
+
+  <main class="layout">
+    <aside class="values-column" id="values-left"></aside>
+
+    <section class="board">
+      <div class="banker-area" id="banker-area">
+        <p id="status-message" class="status-message">Pick your case to begin.</p>
+      </div>
+
+      <div class="cases-grid" id="cases-grid"></div>
+
+      <div class="your-case-area" id="your-case-area" hidden>
+        <div class="your-case-label">Your Case</div>
+        <div class="case-slot" id="your-case-slot"></div>
+      </div>
+
+      <div class="offer-panel" id="offer-panel" hidden>
+        <p class="offer-label">The Banker's Offer</p>
+        <p class="offer-amount" id="offer-amount">$0</p>
+        <div class="offer-buttons">
+          <button id="deal-btn" class="btn btn-deal">Deal</button>
+          <button id="no-deal-btn" class="btn btn-no-deal">No Deal</button>
+        </div>
+      </div>
+
+      <div class="swap-panel" id="swap-panel" hidden>
+        <p>Final decision: keep your case, or swap for the last one on the board?</p>
+        <div class="offer-buttons">
+          <button id="keep-btn" class="btn btn-deal">Keep My Case</button>
+          <button id="swap-btn" class="btn btn-no-deal">Swap Cases</button>
+        </div>
+      </div>
+
+      <div class="result-panel" id="result-panel" hidden>
+        <h2 id="result-title"></h2>
+        <p id="result-detail"></p>
+        <button id="play-again-btn" class="btn btn-deal">Play Again</button>
+      </div>
+    </section>
+
+    <aside class="values-column" id="values-right"></aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>A browser recreation of Deal or No Deal. Hosted on GitHub Pages.</p>
+  </footer>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

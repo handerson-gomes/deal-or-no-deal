@@ -1,0 +1,284 @@
+:root {
+  --bg-dark: #0b0f2b;
+  --bg-darker: #060818;
+  --accent: #f5b700;
+  --accent-2: #e3123a;
+  --case-face: #1b2258;
+  --case-shine: #3a47a3;
+  --text-light: #f4f4f9;
+  --panel-bg: rgba(10, 14, 40, 0.85);
+  --deal-green: #1fa363;
+  --no-deal-red: #c0392b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a2160 0%, var(--bg-dark) 45%, var(--bg-darker) 100%);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--accent);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.site-header h1 .or {
+  color: var(--accent);
+  font-style: italic;
+  margin: 0 0.3rem;
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 140px 1fr 140px;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.values-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.value-chip {
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.value-chip.eliminated {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.25);
+  text-decoration: line-through;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.value-chip.high-value {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.banker-area {
+  min-height: 3rem;
+  text-align: center;
+}
+
+.status-message {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 620px;
+}
+
+.case {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(160deg, var(--case-shine), var(--case-face));
+  color: var(--text-light);
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.case::before {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 12%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+.case:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 2px var(--accent);
+}
+
+.case:disabled {
+  cursor: default;
+}
+
+.case.opened {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.2);
+  transform: none;
+}
+
+.case.opened .case-value {
+  color: var(--accent-2);
+  font-size: 0.85rem;
+}
+
+.case.is-yours {
+  outline: 3px solid var(--accent);
+}
+
+.your-case-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.your-case-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.case-slot {
+  width: 80px;
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  background: linear-gradient(160deg, var(--case-shine), var(--case-face));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  outline: 3px solid var(--accent);
+}
+
+.offer-panel,
+.swap-panel,
+.result-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1.25rem 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 480px;
+}
+
+.offer-label {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.offer-amount {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0.3rem 0 1rem;
+}
+
+.offer-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.1s ease;
+  color: white;
+}
+
+.btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-deal {
+  background: var(--deal-green);
+}
+
+.btn-no-deal {
+  background: var(--no-deal-red);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.result-panel h2 {
+  margin-top: 0;
+}
+
+.site-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .values-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .value-chip {
+    flex: 1 0 45%;
+  }
+
+  .cases-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
